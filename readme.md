@@ -38,19 +38,19 @@ The script relies on the `yt-dlp` tool, which may not be pre-installed on your s
 
 ```bash
 sudo apt update
-sudo apt install yt-dlp
+sudo apt install yt-dlp ffmpeg -y
 ```
 
 **For macOS (using Homebrew):**
 
 ```bash
-brew install yt-dlp
+brew install yt-dlp ffmpeg
 ```
 
 **For Windows (via Chocolatey):**
 
 ```bash
-choco install yt-dlp
+choco install yt-dlp ffmpeg
 ```
 
 Alternatively, you can manually install `yt-dlp` by following the [official installation instructions](https://github.com/yt-dlp/yt-dlp#installation).
