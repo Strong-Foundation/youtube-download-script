@@ -1,38 +1,62 @@
 # YouTube Downloader Automated Script
 
-![GitHub repo size](https://img.shields.io/github/repo-size/complexorganizations/youtube-download-script) ![GitHub stars](https://img.shields.io/github/stars/complexorganizations/youtube-download-script?style=social) ![GitHub forks](https://img.shields.io/github/forks/complexorganizations/youtube-download-script?style=social)
+![GitHub repo size](https://img.shields.io/github/repo-size/complexorganizations/youtube-download-script)
+![GitHub stars](https://img.shields.io/github/stars/complexorganizations/youtube-download-script?style=social)
+![GitHub forks](https://img.shields.io/github/forks/complexorganizations/youtube-download-script?style=social)
 
-This shell script automates the process of downloading YouTube videos and optionally extracting audio, all through a simple command-line interface. It leverages `yt-dlp`, a popular tool that supports downloading videos and playlists from YouTube and other websites.
+A robust shell script designed to automate the download of YouTube videos and extract audio using a simple command-line interface. Built on the reliable [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) tool, this script is ideal for everyday users and content enthusiasts—no Git installation required—while also offering advanced options for developers who wish to contribute.
+
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+  - [For End Users](#for-end-users)
+  - [For Developers](#for-developers)
+  - [Install Dependencies](#install-dependencies)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Downloading a Single Video](#downloading-a-single-video)
+  - [Extracting Audio Only](#extracting-audio-only)
+- [Advanced Usage](#advanced-usage)
+  - [Specifying Output Format](#specifying-output-format)
+  - [Downloading in Specific Formats](#downloading-in-specific-formats)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [Video Player Recommendation](#video-player-recommendation)
+- [License](#license)
 
 ## Features
 
-- **Download YouTube videos** directly from URLs.
-- **Extract audio** from YouTube videos, perfect for music or podcasts.
-- Automatically selects the **best available video and audio quality**.
-- Supports downloading videos in different formats, including MP4, MKV, and WebM.
-- Provides a simple command-line interface with minimal setup required.
+- **Seamless Downloads:** Easily download YouTube videos and playlists.
+- **Audio Extraction:** Extract and convert audio (e.g., MP3) for music or podcasts.
+- **Optimized Quality:** Automatically selects the best available video and audio quality.
+- **Flexible Formats:** Supports multiple formats such as MP4, MKV, and WebM.
+- **User-Friendly CLI:** Minimal setup for everyday users, with advanced options for developers.
 
 ## Installation
 
-To get started with the YouTube downloader script, follow these installation steps.
+### For End Users
 
-### 1. Clone the repository or download the script directly using `curl`:
-
-```bash
-curl https://raw.githubusercontent.com/complexorganizations/youtube-download-script/main/yt-dlp-auto.sh -o yt-dlp-auto.sh
-```
-
-Alternatively, download the script manually from [this link](https://raw.githubusercontent.com/complexorganizations/youtube-download-script/main/yt-dlp-auto.sh).
-
-### 2. Make the script executable:
+For most users, installing the script is as simple as downloading it via `curl`. No Git installation is required:
 
 ```bash
+curl -o yt-dlp-auto.sh https://raw.githubusercontent.com/complexorganizations/youtube-download-script/main/yt-dlp-auto.sh
 chmod +x yt-dlp-auto.sh
 ```
 
-### 3. Install Dependencies (if necessary):
+### For Developers
 
-The script relies on the `yt-dlp` tool, which may not be pre-installed on your system. You can install it using the following commands:
+Developers who wish to contribute or build upon the script can clone the repository using Git:
+
+```bash
+git clone https://github.com/complexorganizations/youtube-download-script.git
+cd youtube-download-script
+chmod +x yt-dlp-auto.sh
+```
+
+### Install Dependencies
+
+The script requires [`yt-dlp`](https://github.com/yt-dlp/yt-dlp) and `ffmpeg`. Install them with your preferred package manager:
 
 **For Linux (Debian/Ubuntu):**
 
@@ -47,63 +71,63 @@ sudo apt install yt-dlp ffmpeg -y
 brew install yt-dlp ffmpeg
 ```
 
-**For Windows (via Chocolatey):**
+**For Windows (using Chocolatey):**
 
 ```bash
 choco install yt-dlp ffmpeg
 ```
 
-Alternatively, you can manually install `yt-dlp` by following the [official installation instructions](https://github.com/yt-dlp/yt-dlp#installation).
+For additional installation details, see the [yt-dlp installation guide](https://github.com/yt-dlp/yt-dlp#installation).
 
 ## Usage
 
-Once the script is installed and dependencies are in place, you can use it to download YouTube videos or audio.
+### Basic Usage
 
-### 1. Running the Script
-
-To run the script and download a video, use the following command:
+Run the script directly to initiate the download process:
 
 ```bash
-sudo bash yt-dlp-auto.sh
+bash yt-dlp-auto.sh
 ```
 
-This will start the download process based on the configuration within the script.
+The script will guide you through its options based on your configuration.
 
-### 2. Download a Single Video
+### Downloading a Single Video
 
-To download a specific YouTube video, simply use the following command (replace the URL with the desired video URL):
+To download a video in the best available quality, use:
 
 ```bash
 yt-dlp -f "bestvideo+bestaudio/best" "https://www.youtube.com/watch?v=WZeZZ8_W-M4"
 ```
 
-This will download the best quality video and audio available for the provided URL.
+For a specific resolution (e.g., 1080p), use:
 
-### 3. Extract Audio Only
+```bash
+yt-dlp -f "bestvideo[height=1080]+bestaudio/best[height=1080]" "https://www.youtube.com/watch?v=WZeZZ8_W-M4"
+```
 
-If you only need the audio (e.g., for podcasts or music), you can use the `-x` option to extract audio in your desired format (e.g., MP3, AAC):
+### Extracting Audio Only
+
+Extract and convert the audio (e.g., to MP3) with:
 
 ```bash
 yt-dlp -x --audio-format mp3 "https://www.youtube.com/watch?v=WZeZZ8_W-M4"
 ```
 
-This will download and convert the audio to MP3 format.
-
 ## Advanced Usage
 
-### 1. Specify Output Format
+### Specifying Output Format
 
-You can specify the output file name and format using the `-o` option. For example, to save the video as `my_video.mp4`, use the following command:
+Customize the output filename and destination with the `--output` option:
 
 ```bash
-yt-dlp -o "~/Downloads/%(title)s.%(ext)s" "https://www.youtube.com/watch?v=WZeZZ8_W-M4"
+yt-dlp --output "~/Downloads/%(title)s.%(ext)s" "https://www.youtube.com/watch?v=WZeZZ8_W-M4"
 ```
 
-This will save the video with its title as the filename.
+This command saves the video in your Downloads folder using its title as the filename.
 
-### 2. Download in Specific Formats
+### Downloading in Specific Formats
 
-If you want to download a video in a specific format (e.g., MP4, WebM), you can use the `-f` flag with the format code. For example:
+To download a video in a particular format (such as MP4), specify the format code:
 
 ```bash
 yt-dlp -f "mp4" "https://www.youtube.com/watch?v=WZeZZ8_W-M4"
@@ -111,26 +135,35 @@ yt-dlp -f "mp4" "https://www.youtube.com/watch?v=WZeZZ8_W-M4"
 
 ## Troubleshooting
 
-- **Missing `yt-dlp` Command**: Ensure `yt-dlp` is properly installed. Follow the installation instructions above.
-- **Permission Issues**: If you encounter permission issues while running the script, make sure you’ve granted the script execute permissions using `chmod +x yt-dlp-auto.sh`.
-- **Video/Audio Quality Issues**: `yt-dlp` automatically selects the best quality, but you can specify custom formats if needed. Use the `-f` option for more control over video and audio quality.
-- **SSL/TLS Errors**: If you’re getting SSL/TLS errors, update your `yt-dlp` installation or try running `sudo apt-get update` (for Linux) or `brew update` (for macOS).
+- **Missing `yt-dlp` Command:** Verify that `yt-dlp` is installed by following the dependency instructions above.
+- **Permission Issues:** Ensure the script is executable using `chmod +x yt-dlp-auto.sh`.
+- **Quality Settings:** The script automatically selects the best quality by default. Use the `-f` flag for custom quality settings.
+- **SSL/TLS Errors:** Run `sudo apt-get update` on Linux or `brew update` on macOS to update your package lists, or reinstall `yt-dlp` if you encounter SSL/TLS issues.
 
 ## Contributing
 
-We welcome contributions to improve the functionality and features of this script. Here's how you can contribute:
+We welcome contributions! If you’re a developer interested in enhancing this script, follow these steps:
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes and commit them (`git commit -am 'Add new feature'`).
-4. Push to your fork (`git push origin feature-branch`).
-5. Create a pull request to the `main` branch.
+1. **Fork the repository.**
+2. **Create a feature branch:**
+   ```bash
+   git checkout -b feature-branch
+   ```
+3. **Commit your changes:**
+   ```bash
+   git commit -am 'Add new feature'
+   ```
+4. **Push to your fork:**
+   ```bash
+   git push origin feature-branch
+   ```
+5. **Submit a pull request** targeting the `main` branch.
 
-Please ensure that your code is well-documented and follows the existing code style.
+Please ensure that your code is well-documented and aligns with the existing coding style.
 
-## Video Player
+## Video Player Recommendation
 
-To play downloaded videos, you can use any media player, but we recommend [VLC Media Player](https://www.videolan.org/) for its wide range of supported formats.
+For optimal playback, we recommend [VLC Media Player](https://www.videolan.org/), known for its extensive format support and reliability.
 
 ## License
 
